@@ -5,3 +5,4 @@ django-js-asset
 pillow
 sqlparse
 tzdata
+whitenoise
