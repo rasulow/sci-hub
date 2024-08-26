@@ -42,7 +42,7 @@ def article_by_category(request, category_id):
     context = {'article_list': articles, 'categories': categories}
     return render(request, 'article.html', context)
     
-@login_required(login_url='go_to_login')  
+@login_required
 def liked(request, article_id):
     try:
         article = models.Arcticle.objects.filter(id=article_id).first()
@@ -83,7 +83,7 @@ def article_detail(request, article_id):
     return render(request, 'article_detail.html', context)
 
 
-@login_required(login_url='go_to_login')
+@login_required
 def article_comment(request,article_id):
     print('comment_page')
     if request.method == 'POST':
