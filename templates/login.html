@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+        
+<!-- About Start -->
+<!-- About 1 - Bootstrap Brain Component -->
+<section class="py-3 py-md-5" style="margin:0 0 60px 0">
+    <h1 class="text-center">Login bolmak</h1>
+    <div class="container d-flex justify-content-center mt-5" >
+        <form style="width:50%" action="" method="Post">
+            {% csrf_token %}
+            <div class="mb-3">
+              <label for="exampleInputEmail1" class="form-label">Username</label>
+              <input type="text" name="username" required class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+              
+            </div>
+            <div class="mb-3">
+              <label for="exampleInputPassword1" class="form-label">Password</label>
+              <input type="password" name="password" required class="form-control" id="exampleInputPassword1">
+            </div>
+            
+            <button type="submit" class="btn btn-primary">Login bolmak</button>
+            <div class="my-3">
+                <label class="form-label">{{error}}</label>
+            </div>
+          </form>
+    </div>
+    <div class="container text-center">
+      <a href="{% url 'register' %}" class="h5 text-primary"><span class="text-dark">Men agza bolmadym.</span> Agza bolmak</a>
+    </div>
+  </section>
+        <!-- About End -->
+
+       
+        {% endblock %}

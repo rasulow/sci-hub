@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+        
+<!-- About Start -->
+<!-- About 1 - Bootstrap Brain Component -->
+
+<style>
+  form {
+    width: 50%;
+    margin: 0 auto;
+  }
+  
+
+  input[type="text"],
+  input[type="password"] {
+    width: 100%;
+    padding: 8px 12px;
+    
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-sizing: border-box;   
+  
+  }
+  
+  .error {
+    color: red;
+    font-size: 12px;
+  }
+</style>
+<section class="py-3 py-md-5">
+    <h1 class="display-4 text-center fw-bolder">Agza bolmak</h1>
+    <div class="container d-flex justify-content-center mt-5" >
+        <form style="width:50%" action="" method="Post">
+            {% csrf_token %}
+            <div class="mb-3">
+              <label for="exampleInputEmail1" class="form-label">Username</label>
+              <div>{{form.username}} </div>
+            </div>
+            <div class="mb-3">
+              <label for="exampleInputEmail1" class="form-label">Adyňyz</label>
+              <div>{{form.first_name}} </div>
+            </div>
+            <div class="mb-3">
+              <label for="exampleInputEmail1" class="form-label">Familiýaňyz</label>
+              <div>{{form.last_name}} </div>
+            </div>
+            <div class="mb-3">
+              <label for="exampleInputPassword1" class="form-label">Password</label>
+              <div>{{form.password1}} </div>
+            </div>
+            <div class="mb-3">
+                <label for="exampleInputPassword2" class="form-label">Confirm Password</label>
+                <div>{{form.password2}} </div>
+              </div>
+            <button type="submit" class="btn btn-primary px-4 py-3">Agza bolmak</button>
+            <div class="my-3">
+              {% for error in errors %}
+              <label class="form-label">{{error}}</label>
+              {% endfor %}
+            </div>
+          </form>
+    </div>
+    <div class="container text-center">
+      <a href="{% url 'login' %}" class="h5 text-primary"><span class="text-dark">Men eýýäm agza boldym.</span> Ulgama girmek</a>
+    </div>
+  </section>
+        <!-- About End -->
+
+       
+        {% endblock %}

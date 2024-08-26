@@ -1,0 +1,243 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<!-- Content -->
+<div class="page-content bg-white">
+	<!-- inner page banner -->
+	<div class="page-banner" style="background-image:url(../static/assets/images/newspapers.jpg);">
+		<div class="container">
+			<div class="page-banner-entry">
+				<h1 class="text-white">Profilim</h1>
+			</div>
+		</div>
+	</div>
+	<!-- Breadcrumb row -->
+	<div class="breadcrumb-row">
+		<div class="container">
+			<ul class="list-inline">
+				<li><a href="{% url 'index' %}">Baş sahypa</a></li>
+				<li>Profilim</li>
+			</ul>
+		</div>
+	</div>
+	<!-- Breadcrumb row END -->
+	<!-- inner page banner END -->
+	<div class="content-block">
+		<!-- About Us -->
+		<div class="section-area section-sp1">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-3 col-md-4 col-sm-12 m-b30">
+						<div class="profile-bx text-center">
+							<div class="user-profile-thumb">
+								<img src="assets/images/profile/pic1.jpg" alt="" />
+							</div>
+							<div class="profile-info">
+								<h4>{{request.user.first_name}} {{request.user.last_name}}</h4>
+							</div>
+
+							<div class="profile-tabnav">
+								<ul class="nav nav-tabs">
+									<li class="nav-item">
+										<a class="nav-link active" data-toggle="tab" href="#courses"><i
+												class="ti-book"></i>Makalalarym</a>
+									</li>
+
+									<li class="nav-item">
+										<a class="nav-link" data-toggle="tab" href="#add_article"><i
+												class="ti-book"></i>Makala goşmak</a>
+									</li>
+
+									<li class="nav-item">
+										<a class="nav-link" data-toggle="tab" href="#edit-profile"><i
+												class="ti-pencil-alt"></i>Profile sazla</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link" data-toggle="tab" href="#change-password"><i
+												class="ti-lock"></i>Açar söze üýtget</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-9 col-md-8 col-sm-12 m-b30">
+						<div class="profile-content-bx">
+							<div class="tab-content">
+								<div class="tab-pane active" id="courses">
+									<div class="profile-head">
+										<h3>Makalalarym</h3>
+									</div>
+									<div class="courses-filter">
+										<div class="clearfix">
+											<ul id="masonry" class="ttr-gallery-listing magnific-image row">
+												{% for article in articles %}
+												<li class="action-card col-xl-4 col-lg-6 col-md-12 col-sm-6 publish">
+													<div class="cours-bx">
+														<div class="action-box" style="min-height: 200px;">
+															<img src="{{article.img.url}}" alt=""
+																style="min-height: 200px;">
+															<a href="{% url 'article_detail' article.id %}"
+																class="btn">Okamak</a>
+														</div>
+														<div class="info-bx text-center" style="min-height: 100px;">
+															<h6><a
+																	href="{% url 'article_detail' article.id %}">{{article.title|slice:40}}...</a>
+															</h6>
+															<span>{{article.category}}</span>
+														</div>
+
+													</div>
+												</li>
+												{% empty %}
+												<h3>Häzirlikçe Siz makala ýüklemediňiz</h3>
+												{% endfor %}
+											</ul>
+										</div>
+									</div>
+								</div>
+
+								<div class="tab-pane" id="add_article">
+									<div class="profile-head">
+										<h3>Makala goşmak</h3>
+									</div>
+									<form class="edit-profile" action="{% url 'add_article' %}" method="post"
+										enctype="multipart/form-data">
+										{% csrf_token %}
+										<div class="">
+											<div class="form-group row">
+												<div class="col-12 col-sm-9 col-md-9 col-lg-10 ml-auto">
+													<h3>1. Makala maglumatlary</h3>
+												</div>
+											</div>
+											{% for field in form %}
+											<div class="form-group row">
+												<label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label"
+													for="title">{{field.label}}</label>
+												{{field}}
+											</div>
+											{% endfor %}
+										</div>
+										<div class="">
+											<div class="">
+												<div class="row">
+													<div class="col-12 col-sm-3 col-md-3 col-lg-2">
+													</div>
+													<div class="col-12 col-sm-9 col-md-9 col-lg-7">
+														<button type="submit" class="btn">Ýatda
+															sakla</button>
+													</div>
+												</div>
+											</div>
+										</div>
+									</form>
+								</div>
+
+								<div class="tab-pane" id="edit-profile">
+									<div class="profile-head">
+										<h3>Profili sazla</h3>
+									</div>
+									<form class="edit-profile" action="{% url 'change_personal_info' %}" method="post">
+										{% csrf_token %}
+										<div class="">
+											<div class="form-group row">
+												<div class="col-12 col-sm-9 col-md-9 col-lg-10 ml-auto">
+													<h3>1. Şahsy Maglumatlar</h3>
+												</div>
+											</div>
+											<div class="form-group row">
+												<label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label"
+													for="username">Username</label>
+												<div class="col-12 col-sm-9 col-md-9 col-lg-7">
+													<input class="form-control" type="text" id="username"
+														name="username" value="{{request.user.username}}">
+												</div>
+											</div>
+											<div class="form-group row">
+												<label
+													class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label">Adyňyz</label>
+												<div class="col-12 col-sm-9 col-md-9 col-lg-7">
+													<input class="form-control" type="text" name="first_name"
+														value="{{request.user.first_name}}">
+												</div>
+											</div>
+											<div class=" form-group row">
+												<label
+													class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label">Familiýaňyz</label>
+												<div class="col-12 col-sm-9 col-md-9 col-lg-7">
+													<input class="form-control" type="text" name="last_name"
+														value="{{request.user.last_name}}">
+												</div>
+											</div>
+											<div class="form-group row">
+												<label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label">Profil
+													suraty</label>
+												<div class="col-12 col-sm-9 col-md-9 col-lg-7">
+													<input class="form-control" type="file">
+												</div>
+											</div>
+										</div>
+										<div class="">
+											<div class="">
+												<div class="row">
+													<div class="col-12 col-sm-3 col-md-3 col-lg-2">
+													</div>
+													<div class="col-12 col-sm-9 col-md-9 col-lg-7">
+														<button type="submit" class="btn">Ýatda
+															sakla</button>
+													</div>
+												</div>
+											</div>
+										</div>
+									</form>
+								</div>
+								<div class="tab-pane" id="change-password">
+									<div class="profile-head">
+										<h3>Açar sözi üýtgetmek</h3>
+									</div>
+									<form class="edit-profile" action="{% url 'change_password' %}" method="post">
+										{% csrf_token %}
+										<div class="">
+											<div class="form-group row">
+												<label class="col-12 col-sm-4 col-md-4 col-lg-3 col-form-label">Häzirki
+													açar söz</label>
+												<div class="col-12 col-sm-8 col-md-8 col-lg-7">
+													<input class="form-control" name="old_password" type="password">
+												</div>
+											</div>
+											<div class="form-group row">
+												<label class="col-12 col-sm-4 col-md-4 col-lg-3 col-form-label">Täze
+													açar söz</label>
+												<div class="col-12 col-sm-8 col-md-8 col-lg-7">
+													<input class="form-control" name="new_password" type="password">
+												</div>
+											</div>
+											<div class="form-group row">
+												<label class="col-12 col-sm-4 col-md-4 col-lg-3 col-form-label">Açar
+													sözi gaýtala</label>
+												<div class="col-12 col-sm-8 col-md-8 col-lg-7">
+													<input class="form-control" name="confirm_password" type="password">
+												</div>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-12 col-sm-4 col-md-4 col-lg-3">
+											</div>
+											<div class="col-12 col-sm-8 col-md-8 col-lg-7">
+												<button type="submit" class="btn">Ýatda sakla</button>
+											</div>
+										</div>
+
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- contact area END -->
+</div>
+<!-- Content END-->
+
+{% endblock content %}

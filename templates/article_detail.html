@@ -1,0 +1,139 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<!-- Content -->
+<div class="page-content bg-white">
+	<!-- inner page banner -->
+	<div class="page-banner" style="background-image:url(../static/assets/images/article.jpg);">
+		<div class="container">
+			<div class="page-banner-entry">
+				<h1 class="text-white">Makala barada</h1>
+			</div>
+		</div>
+	</div>
+	<!-- Breadcrumb row -->
+	<div class="breadcrumb-row">
+		<div class="container">
+			<ul class="list-inline">
+				<li><a href="{% url 'index' %}">Baş sahypa</a></li>
+				<li><a href="{% url 'article' %}">Makalalar</a></li>
+				<li>Makala barada</li>
+			</ul>
+		</div>
+	</div>
+	<!-- Breadcrumb row END -->
+	<!-- inner page banner END -->
+	<div class="content-block">
+		<!-- About Us -->
+		<div class="section-area section-sp1">
+			<div class="container">
+				<div class="row d-flex flex-row-reverse">
+					<div class="col-lg-3 col-md-4 col-sm-12 m-b30">
+						<div class="course-detail-bx">
+							<div class="course-price">
+								<h4 class="price">{{article.title}}</h4>
+								<p>{{article.date_created|date }}</p>
+							</div>
+
+							<div class="teacher-bx">
+								<div class="teacher-info">
+									<div class="teacher-thumb">
+										<img src="assets/images/testimonials/pic1.jpg" alt="" />
+									</div>
+									<div class="teacher-name text-center">
+										<h5 style="width: 100%;font-weight: bolder;">
+											{{article.user_name}}
+										</h5>
+										<span>tarapyndan goýuldy</span>
+									</div>
+								</div>
+							</div>
+							<div class="teacher-info" style="border-bottom: 1px solid gray;">
+								<div class="teacher-thumb">
+									<img src="assets/images/testimonials/pic1.jpg" alt="" />
+								</div>
+								<div class="teacher-name text-center">
+									<h5 style="width: 100%;font-weight: bolder;">
+										{{article.category}}
+									</h5>
+									<span>Kategoriýa</span>
+								</div>
+							</div>
+
+							<div class="course-info-list scroll-page">
+								<ul class="navbar">
+									<li><a class="nav-link" href="{% url 'liked' article_id %}"><i
+												class="ti-thumb-up"></i>Like</a>
+									</li>
+
+									<li><a class="nav-link" href="{{article.file.url}}" target="_blank"><i
+												class="ti-eye"></i>Okamak</a>
+									</li>
+									<li><a class="nav-link" download href="{{article.file.url}}" target="_blank"><i
+												class="ti-download"></i>Download</a>
+									</li>
+
+								</ul>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-lg-9 col-md-8 col-sm-12">
+						<div class="courses-post">
+							{% if article.img %}
+							<div class="ttr-post-media media-effect">
+								<a href="#"><img src="{{ article.img.url }}" style="height:auto" alt=""></a>
+							</div>
+							{% endif %}
+							<div class="ttr-post-info">
+								<div class="ttr-post-title ">
+									<h2 class="post-title">{{article.title}}</h2>
+								</div>
+								<div class="ttr-post-text">
+									<p>{{article.description|safe}}</p>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-lg-12 col-md-8 col-sm-12">
+							<form action="{% url 'article_comment' article_id %}" style="width: 100%;" method="post">
+								{% csrf_token %}
+								<div class="mb-3">
+									<label for="exampleFormControlTextarea1" class="form-label">Makala barada
+										kommentariýa galdyrmak</label>
+									<textarea class="form-control" style="width: 100%;" name="comment"
+										id="exampleFormControlTextarea1" rows="15"></textarea>
+								</div>
+								<div class="mb-3">
+									<button type="submit" class="btn btn-success">Ugrat</button>
+								</div>
+							</form>
+						</div>
+
+						<div class="" id="instructor">
+							<h4>Kommentariýalar</h4>
+							{% for comment in article_comments %}
+							<div class="instructor-bx">
+
+								<div class="instructor-info">
+									<div class="d-flex">
+										<h5>User : {{comment.user}}</h5>
+									</div>
+									<label style="font-weight: normal;">Kommentariýa:</label>
+									<p class="m-b0">{{comment.comment|safe}}</p>
+								</div>
+							</div>
+							{% endfor %}
+						</div>
+
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- contact area END -->
+
+</div>
+<!-- Content END-->
+{% endblock content %}
