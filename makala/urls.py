@@ -8,4 +8,8 @@ urlpatterns = [
     path('', include('main.urls')),
     path('account/', include('account.urls')),
     
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+]
+
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
