@@ -126,7 +126,7 @@ def profile(request):
     context = {'categories': categories, 'form': form,'articles': articles}
     return render(request, 'profile.html',context)
 
-
+@login_required
 def add_article(request):
     if request.method == 'POST':
        form = ArticleForm(request.POST, request.FILES)
