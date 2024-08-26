@@ -6,3 +6,4 @@ pillow
 sqlparse
 tzdata
 whitenoise
+django-jazzmin
